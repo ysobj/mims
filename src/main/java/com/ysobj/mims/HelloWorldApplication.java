@@ -3,7 +3,9 @@ package com.ysobj.mims;
 import org.skife.jdbi.v2.DBI;
 
 import com.ysobj.mims.health.TemplateHealthCheck;
+import com.ysobj.mims.jdbi.PeopleDao;
 import com.ysobj.mims.resources.HelloWorldResource;
+import com.ysobj.mims.resources.PeopleResource;
 
 import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;
@@ -42,10 +44,9 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 
 		final DBIFactory factory = new DBIFactory();
 		final DBI jdbi = factory.build(environment,
-				configuration.getDataSourceFactory(), "postgresql");
-		// final UserDAO dao = jdbi.onDemand(UserDAO.class);
-		// environment.jersey().register(new UserResource(dao));
-
+				configuration.getDataSourceFactory(), "jdbi");
+		PeopleDao peopleDao = jdbi.onDemand(PeopleDao.class);
+		environment.jersey().register(new PeopleResource(peopleDao));
 		environment.healthChecks().register("template", healthCheck);
 		environment.jersey().register(resource);
 	}
