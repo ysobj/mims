@@ -8,6 +8,7 @@ import com.ysobj.mims.resources.HelloWorldResource;
 import com.ysobj.mims.resources.PeopleResource;
 
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.migrations.MigrationsBundle;
@@ -32,6 +33,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 				return configuration.getDataSourceFactory();
 			}
 		});
+		bootstrap.addBundle(new AssetsBundle());
 	}
 
 	@Override
