@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import com.ysobj.mims.core.Machine;
@@ -76,6 +77,42 @@ public class MachineDaoImpl implements MachineDao {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public void destroy(String id) {
+		ProcessBuilder pb = new ProcessBuilder("vagrant", "destroy", id);
+		try {
+			pb.start();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void up(String id) {
+		ProcessBuilder pb = new ProcessBuilder("vagrant", "up", id);
+		try {
+			pb.start();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void init(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void halt(String id) {
+		ProcessBuilder pb = new ProcessBuilder("vagrant", "halt", id);
+		try {
+			pb.start();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
